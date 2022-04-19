@@ -245,13 +245,14 @@ std::pair<array, array> load_dataset(
   std::string f = test ? "t10k" : "train";
   int size = test ? TEST_SIZE : TRAIN_SIZE;
 
-  std::string image_file = data_dir + "/" + f + "-images-idx3-ubyte";
+  std::string image_file = data_dir + "/" + f + "-images.idx3-ubyte";
+  std::cout << image_file << std::endl;
   array ims = load_data<float>(image_file, {size, IM_DIM, IM_DIM});
   ims = moddims(ims, {IM_DIM, IM_DIM, 1, size});
   // Rescale to [-0.5,  0.5]
   ims = (ims - PIXEL_MAX / 2) / PIXEL_MAX;
 
-  std::string label_file = data_dir + "/" + f + "-labels-idx1-ubyte";
+  std::string label_file = data_dir + "/" + f + "-labels.idx1-ubyte";
   array labels = load_data<int>(label_file, {size});
 
   return std::make_pair(ims, labels);
